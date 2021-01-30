@@ -7,10 +7,12 @@ name = "minimal_route_solver"
 version = "0.1.0"
 description = "Reduces total distance to move cargos given a list of trucks"
 authors = ["Tomas Menito <tomasmenito@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
 prettyconf = "^2.2.1"
+click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 ipdb = "^0.13.4"
@@ -21,6 +23,9 @@ pytest-cov = "^2.11.1"
 pytest-deadfixtures = "^2.2.1"
 pytest-randomly = "^3.5.0"
 safety = "^1.10.3"
+
+[tool.poetry.scripts]
+cargo_truck = 'minimal_route_solver.solver:solve'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
