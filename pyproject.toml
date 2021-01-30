@@ -1,3 +1,7 @@
+[tool.pytest.ini_options]
+testpaths = "tests"
+addopts = "-vv --cov-report=term-missing --cov=minimal_route_solver --cov-branch"
+
 [tool.poetry]
 name = "minimal_route_solver"
 version = "0.1.0"
@@ -8,6 +12,14 @@ authors = ["Tomas Menito <tomasmenito@gmail.com>"]
 python = "^3.9"
 
 [tool.poetry.dev-dependencies]
+ipdb = "^0.13.4"
+ipython = "^7.19.0"
+pre-commit = "^2.10.0"
+pytest = "^6.2.2"
+pytest-cov = "^2.11.1"
+pytest-deadfixtures = "^2.2.1"
+pytest-randomly = "^3.5.0"
+safety = "^1.10.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

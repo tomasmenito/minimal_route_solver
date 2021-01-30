@@ -66,4 +66,3 @@ Although you can use another language, we strongly suggest that you use Python f
 - If the file is too big, try sharing it through a private repository (like Bitbucket or GitHub) or just share it using Google Drive.
 
 Please, **do not post your solution to any kind of public repository**.
-
