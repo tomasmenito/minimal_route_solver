@@ -1,29 +1,25 @@
-from dataclasses import dataclass
+from typing import NamedTuple
 
 
-@dataclass(frozen=True)
-class Location:
+class Location(NamedTuple):
     city: str
     state: str
     lat: float
     lng: float
 
 
-@dataclass(frozen=True)
-class Cargo:
+class Cargo(NamedTuple):
     product: str
     origin_location: Location
     destination_location: Location
 
 
-@dataclass(frozen=True)
-class Truck:
+class Truck(NamedTuple):
     truck: str
     location: Location
 
 
-@dataclass(frozen=True)
-class Route:
+class Route(NamedTuple):
     truck: Truck
     cargo: Cargo
     distance: float
