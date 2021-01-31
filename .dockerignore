@@ -1,0 +1,11 @@
+venv
+.venv
+.git
+.pytest_cache
+__pycache__/
+tests/
+samples/
+docs/
+.coverage
+.pre-commit-config.yaml
+README.md
