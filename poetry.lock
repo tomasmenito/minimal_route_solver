@@ -441,17 +441,6 @@ python-versions = "*"
 pytest = ">=3.0.0"
 
 [[package]]
-name = "pytest-randomly"
-version = "3.5.0"
-description = "Pytest plugin to randomly order tests and control random.seed."
-category = "dev"
-optional = false
-python-versions = ">=3.5"
-
-[package.dependencies]
-pytest = "*"
-
-[[package]]
 name = "python-dateutil"
 version = "2.8.1"
 description = "Extensions to the standard Python datetime module"
@@ -582,7 +571,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d8b045c017e5aa3a4f20882ed263dbceefba15596095073fdf92aa0559a17ffc"
+content-hash = "c78745916ad19015d7b3bc834b15f0a70767533d1031c8bba272dab221e20f24"
 
 [metadata.files]
 appdirs = [
@@ -793,10 +782,6 @@ pytest-cov = [
 pytest-deadfixtures = [
     {file = "pytest-deadfixtures-2.2.1.tar.gz", hash = "sha256:ca15938a4e8330993ccec9c6c847383d88b3cd574729530647dc6b492daa9c1e"},
     {file = "pytest_deadfixtures-2.2.1-py2.py3-none-any.whl", hash = "sha256:db71533f2d9456227084e00a1231e732973e299ccb7c37ab92e95032ab6c083e"},
-]
-pytest-randomly = [
-    {file = "pytest-randomly-3.5.0.tar.gz", hash = "sha256:440cec143fd9b0adeb072006c71e0294402a2bc2ccd08079c2341087ba4cf2d1"},
-    {file = "pytest_randomly-3.5.0-py3-none-any.whl", hash = "sha256:9db10d160237f3f8ee60cef72e4cb9ea88d2893c9dd5c8aa334b060cdeb67c3a"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
