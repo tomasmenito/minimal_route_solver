@@ -4,19 +4,24 @@ from operator import itemgetter
 import click
 
 from .models import Cargo, Location, Truck
-from .solvers import SolverByMinimalOverallRoute
-
-LOCATION_PROPS = {"city", "state", "lat", "lng"}
+from .solvers import SolverByShortestOverallRoute
 
 
-def _parse_cargo(data) -> Cargo:
+def row_to_cargo(**data) -> Cargo:
     origin_location = Location(
-        **{prop: data.pop(f"origin_{prop}") for prop in LOCATION_PROPS}
+        city=data.pop("origin_city"),
+        state=data.pop("origin_state"),
+        lat=float(data.pop("origin_lat")),
+        lng=float(data.pop("origin_lng")),
     )
 
     destination_location = Location(
-        **{prop: data.pop(f"destination_{prop}") for prop in LOCATION_PROPS}
+        city=data.pop("destination_city"),
+        state=data.pop("destination_state"),
+        lat=float(data.pop("destination_lat")),
+        lng=float(data.pop("destination_lng")),
     )
+
     return Cargo(
         **data,
         origin_location=origin_location,
@@ -24,8 +29,13 @@ def _parse_cargo(data) -> Cargo:
     )
 
 
-def _parse_truck(data) -> Truck:
-    location = Location(**{prop: data.pop(prop) for prop in LOCATION_PROPS})
+def row_to_truck(**data) -> Truck:
+    location = Location(
+        city=data.pop("city"),
+        state=data.pop("state"),
+        lat=float(data.pop("lat")),
+        lng=float(data.pop("lng")),
+    )
     return Truck(**data, location=location)
 
 
@@ -37,16 +47,16 @@ def solve(cargo_file, truck_file, results_file):
     cargos_reader = csv.DictReader(cargo_file)
     trucks_reader = csv.DictReader(truck_file)
 
-    cargos = [_parse_cargo(line) for line in cargos_reader]
-    trucks = [_parse_truck(line) for line in trucks_reader]
+    cargos = [row_to_cargo(**row) for row in cargos_reader]
+    trucks = [row_to_truck(**row) for row in trucks_reader]
 
-    routes = SolverByMinimalOverallRoute(cargos, trucks).solve()
+    routes = SolverByShortestOverallRoute(cargos, trucks).solve()
 
     routes_data = [
         {
             "cargo": route.cargo.product,
             "truck": route.truck.truck,
-            "distance": route.distance,
+            "distance": round(route.distance, 2),
         }
         for route in routes
     ]
