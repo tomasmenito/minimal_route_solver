@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Iterable
+from typing import Iterable, Type
 
-from .distance_matrix import LazyAerialDistanceMatrix
+from .distance_matrix import DistanceMatrix, LazyAerialDistanceMatrix
 from .models import Cargo, Route, Truck
 
 
@@ -16,8 +16,9 @@ class MinimalRouteSolver(ABC):
 
 
 class SolverByShortestOverallRoute(MinimalRouteSolver):
-    def calculate_distance_matrix(self):
-        self.distance_matrix = LazyAerialDistanceMatrix()
+    def __init__(self, *args, distance_matrix: Type[DistanceMatrix] = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.distance_matrix = distance_matrix or LazyAerialDistanceMatrix()
 
     def generate_sorted_shortest_routes_by_cargo(self, cargo: Cargo) -> list[Route]:
         routes = []
@@ -32,14 +33,15 @@ class SolverByShortestOverallRoute(MinimalRouteSolver):
         routes.sort(key=lambda r: r.distance)
         return routes
 
+    @classmethod
     def find_shortest_route(
-        self, routes_by_cargo: dict[Cargo, Iterable[Route]], busy_trucks: set[Truck]
+        cls, routes_by_cargo: dict[Cargo, Iterable[Route]], busy_trucks: set[Truck]
     ) -> Route:
         shortest_route_by_cargo = {}
-        for cargo_routes in routes_by_cargo.values():
-            for index, route in enumerate(cargo_routes):
+        for routes in routes_by_cargo.values():
+            for index, route in enumerate(routes):
                 if route.truck in busy_trucks:
-                    cargo_routes.pop(index)
+                    routes.pop(index)
                 else:
                     shortest_route_by_cargo[route.cargo] = route
                     break
@@ -47,7 +49,6 @@ class SolverByShortestOverallRoute(MinimalRouteSolver):
         return min(shortest_route_by_cargo.values(), key=lambda r: r.distance)
 
     def solve(self) -> list[Route]:
-        self.calculate_distance_matrix()
         routes_by_cargo = {
             cargo: self.generate_sorted_shortest_routes_by_cargo(cargo)
             for cargo in self.cargos

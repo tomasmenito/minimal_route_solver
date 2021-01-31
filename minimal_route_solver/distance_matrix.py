@@ -12,7 +12,9 @@ class DistanceMatrix(ABC):
 
 
 class LazyAerialDistanceMatrix(DistanceMatrix):
-    distances: defaultdict[Location, dict[Location, float]] = defaultdict(dict)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.distances: defaultdict[Location, dict[Location, float]] = defaultdict(dict)
 
     def distance(self, origin: Location, destination: Location) -> float:
         first, second = min(origin, destination), max(origin, destination)
