@@ -36,7 +36,7 @@ repos:
     rev: 3.8.4
     hooks:
       - id: flake8
-        args: ["--exclude=docs/*", "--ignore=E501"]
+        args: ["--exclude=docs/*", "--ignore=E501,W503"]
 
   - repo: https://github.com/timothycrosley/isort
     rev: 5.7.0

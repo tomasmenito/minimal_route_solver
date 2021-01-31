@@ -58,9 +58,12 @@ def test_find_shortest_route_with_busy_trucks():
     )
 
     assert shortest_route != shortest_route_without_busy
-    for route in all_routes:
-        if route.truck != shortest_route_without_busy.truck:
-            assert shortest_route.distance <= route.distance
+    assert all(
+        shortest_route.distance <= route.distance
+        for route in all_routes
+        if route.truck not in busy_trucks
+        and route.cargo != shortest_route_without_busy.cargo
+    )
 
 
 def test_solve():
