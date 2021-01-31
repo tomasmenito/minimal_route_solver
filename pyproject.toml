@@ -24,6 +24,7 @@ pytest-cov = "^2.11.1"
 pytest-deadfixtures = "^2.2.1"
 pytest-randomly = "^3.5.0"
 safety = "^1.10.3"
+Faker = "^5.8.0"
 
 [tool.poetry.scripts]
 cargo_truck = 'minimal_route_solver.commands:solve'
