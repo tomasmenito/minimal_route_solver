@@ -20,3 +20,10 @@ class Cargo:
 class Truck:
     truck: str
     location: Location
+
+
+@dataclass(frozen=True)
+class Route:
+    truck: Truck
+    cargo: Cargo
+    distance: float
